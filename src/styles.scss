@@ -1,1 +1,120 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Variables
+:root {
+  // Animation speed factor for controlling game animations
+  --animation-speed-factor: 1;
+  
+  // Game grid size (default 4)
+  --game-grid-size: 4;
+  
+  // Theme properties
+  --bg-color: #faf8ef;
+  --text-color: #776e65;
+  --card-bg-color: #fff;
+  --border-color: #e0e0e0;
+  --accent-color: #f67c5f;
+  --grid-bg-color: #bbada0;
+  --grid-cell-color: rgba(238, 228, 218, 0.35);
+  
+  // Set initial color-scheme
+  color-scheme: light;
+}
+
+// Themes
+.light-theme {
+  // Light theme is default
+}
+
+.dark-theme {
+  --bg-color: #1c1c1c;
+  --text-color: #e0e0e0;
+  --card-bg-color: #2d2d2d;
+  --border-color: #3d3d3d;
+  --accent-color: #edcf72;
+  --grid-bg-color: #3a3a3a;
+  --grid-cell-color: rgba(80, 80, 80, 0.35);
+  
+  // Set dark color-scheme
+  color-scheme: dark;
+}
+
+.colorful-theme {
+  --bg-color: #e8f4fa;
+  --text-color: #333;
+  --card-bg-color: #fff;
+  --border-color: #d9edf7;
+  --accent-color: #9b59b6;
+  --grid-bg-color: #3498db;
+  --grid-cell-color: rgba(52, 152, 219, 0.2);
+}
+
+// Apply theme to body
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Override Material card background
+.mat-mdc-card {
+  background-color: var(--card-bg-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+// Smooth theme transitions for all elements
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+// Animation speed adjustment
+.tile-new, .tile-merged {
+  animation-duration: calc(0.2s / var(--animation-speed-factor)) !important;
+}
+
+.tile {
+  transition: transform calc(0.15s / var(--animation-speed-factor)) ease-in-out !important;
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Game specific
+.game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Responsive font size adjustments
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+// Print styles
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+}

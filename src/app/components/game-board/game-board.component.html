@@ -1,0 +1,86 @@
+<div class="game-container">
+  <!-- Header with score and controls -->
+  <div class="game-header">
+    <div class="score-container">
+      <div class="score-label">SCORE</div>
+      <div class="score-value">{{ score }}</div>
+    </div>
+    
+    <div class="controls">
+      <button mat-mini-fab color="primary" aria-label="Undo move" (click)="undo()" matTooltip="Undo Move">
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" aria-label="New game" (click)="startNewGame()" matTooltip="New Game">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button mat-mini-fab color="accent" aria-label="Back to menu" (click)="backToMenu()" matTooltip="Main Menu">
+        <mat-icon>home</mat-icon>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Game board container -->
+  <div class="grid-container">
+    <!-- Background grid cells -->
+    <div class="grid-background">
+      <!-- Create 16 cells in a 4x4 grid -->
+      <div class="grid-cell" *ngFor="let i of gridCells"></div>
+    </div>
+    
+    <!-- Tiles container and tiles -->
+    <div class="tiles-container">
+      <!-- We'll place tiles absolutely within this container -->
+      <div 
+        *ngFor="let tile of gameService.tiles$ | async; trackBy: trackByTileId" 
+        class="tile"
+        [class.tile-new]="tile.isNew"
+        [class.tile-merged]="tile.isMerged"
+        [ngStyle]="{
+          '--x': tile.position.x,
+          '--y': tile.position.y,
+          '--background-color': getTileBackgroundColor(tile.value),
+          '--text-color': getTileTextColor(tile.value)
+        }"
+        [class]="getTileTextSize(tile.value)">
+        {{ tile.value }}
+      </div>
+    </div>
+    
+    <!-- Game over overlay -->
+    <div class="game-over" *ngIf="gameOver">
+      <div class="game-over-message">
+        <h2>Game Over!</h2>
+        <p>Your score: {{ score }}</p>
+        <button mat-raised-button color="primary" (click)="startNewGame()">
+          Play Again
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile controls -->
+  <div class="mobile-controls">
+    <div class="swipe-instructions">
+      <span>Swipe to move tiles or use arrow keys</span>
+    </div>
+    
+    <div class="mobile-buttons">
+      <button mat-icon-button aria-label="Move up" (click)="gameService.move('up')">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      
+      <div class="middle-buttons">
+        <button mat-icon-button aria-label="Move left" (click)="gameService.move('left')">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Move right" (click)="gameService.move('right')">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+      
+      <button mat-icon-button aria-label="Move down" (click)="gameService.move('down')">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </div>
+  </div>
+</div> 

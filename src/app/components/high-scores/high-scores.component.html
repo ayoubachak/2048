@@ -1,0 +1,158 @@
+<div class="high-scores-container">
+  <div class="header">
+    <button mat-icon-button (click)="backToMenu()" aria-label="Back to menu">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>High Scores</h1>
+    <button mat-icon-button (click)="clearScores()" aria-label="Clear scores" class="clear-button">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  
+  <mat-card class="scores-card">
+    <mat-card-content>
+      <mat-tab-group animationDuration="300ms">
+        <!-- 4x4 Grid Scores -->
+        <mat-tab label="4×4 Grid">
+          <div class="tab-content">
+            <div *ngIf="scores4x4.length === 0" class="no-scores">
+              <p>No scores recorded for 4×4 grid yet.</p>
+              <p>Play a game to set a high score!</p>
+            </div>
+            
+            <table mat-table [dataSource]="scores4x4" *ngIf="scores4x4.length > 0" class="scores-table">
+              <!-- Rank Column -->
+              <ng-container matColumnDef="rank">
+                <th mat-header-cell *matHeaderCellDef>Rank</th>
+                <td mat-cell *matCellDef="let score; let i = index">{{ i + 1 }}</td>
+              </ng-container>
+              
+              <!-- Score Column -->
+              <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef>Score</th>
+                <td mat-cell *matCellDef="let score" class="score-cell">{{ score.score }}</td>
+              </ng-container>
+              
+              <!-- Max Tile Column -->
+              <ng-container matColumnDef="maxTile">
+                <th mat-header-cell *matHeaderCellDef>Max Tile</th>
+                <td mat-cell *matCellDef="let score">{{ score.maxTile || '—' }}</td>
+              </ng-container>
+              
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let score">{{ formatDate(score.date) }}</td>
+              </ng-container>
+              
+              <!-- Duration Column -->
+              <ng-container matColumnDef="duration">
+                <th mat-header-cell *matHeaderCellDef>Time</th>
+                <td mat-cell *matCellDef="let score">{{ formatDuration(score.duration) }}</td>
+              </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        
+        <!-- 5x5 Grid Scores -->
+        <mat-tab label="5×5 Grid">
+          <div class="tab-content">
+            <div *ngIf="scores5x5.length === 0" class="no-scores">
+              <p>No scores recorded for 5×5 grid yet.</p>
+              <p>Play a game to set a high score!</p>
+            </div>
+            
+            <table mat-table [dataSource]="scores5x5" *ngIf="scores5x5.length > 0" class="scores-table">
+              <!-- Rank Column -->
+              <ng-container matColumnDef="rank">
+                <th mat-header-cell *matHeaderCellDef>Rank</th>
+                <td mat-cell *matCellDef="let score; let i = index">{{ i + 1 }}</td>
+              </ng-container>
+              
+              <!-- Score Column -->
+              <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef>Score</th>
+                <td mat-cell *matCellDef="let score" class="score-cell">{{ score.score }}</td>
+              </ng-container>
+              
+              <!-- Max Tile Column -->
+              <ng-container matColumnDef="maxTile">
+                <th mat-header-cell *matHeaderCellDef>Max Tile</th>
+                <td mat-cell *matCellDef="let score">{{ score.maxTile || '—' }}</td>
+              </ng-container>
+              
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let score">{{ formatDate(score.date) }}</td>
+              </ng-container>
+              
+              <!-- Duration Column -->
+              <ng-container matColumnDef="duration">
+                <th mat-header-cell *matHeaderCellDef>Time</th>
+                <td mat-cell *matCellDef="let score">{{ formatDuration(score.duration) }}</td>
+              </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        
+        <!-- 6x6 Grid Scores -->
+        <mat-tab label="6×6 Grid">
+          <div class="tab-content">
+            <div *ngIf="scores6x6.length === 0" class="no-scores">
+              <p>No scores recorded for 6×6 grid yet.</p>
+              <p>Play a game to set a high score!</p>
+            </div>
+            
+            <table mat-table [dataSource]="scores6x6" *ngIf="scores6x6.length > 0" class="scores-table">
+              <!-- Rank Column -->
+              <ng-container matColumnDef="rank">
+                <th mat-header-cell *matHeaderCellDef>Rank</th>
+                <td mat-cell *matCellDef="let score; let i = index">{{ i + 1 }}</td>
+              </ng-container>
+              
+              <!-- Score Column -->
+              <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef>Score</th>
+                <td mat-cell *matCellDef="let score" class="score-cell">{{ score.score }}</td>
+              </ng-container>
+              
+              <!-- Max Tile Column -->
+              <ng-container matColumnDef="maxTile">
+                <th mat-header-cell *matHeaderCellDef>Max Tile</th>
+                <td mat-cell *matCellDef="let score">{{ score.maxTile || '—' }}</td>
+              </ng-container>
+              
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let score">{{ formatDate(score.date) }}</td>
+              </ng-container>
+              
+              <!-- Duration Column -->
+              <ng-container matColumnDef="duration">
+                <th mat-header-cell *matHeaderCellDef>Time</th>
+                <td mat-cell *matCellDef="let score">{{ formatDuration(score.duration) }}</td>
+              </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="backToMenu()">
+      Back to Menu
+    </button>
+  </div>
+</div> 

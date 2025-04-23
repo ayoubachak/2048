@@ -1,0 +1,56 @@
+<div class="main-menu-container">
+  <div class="logo">
+    <h1>2048</h1>
+    <button class="theme-switcher" mat-icon-button (click)="cycleTheme()" aria-label="Change theme">
+      <mat-icon>{{ currentTheme === 'light' ? 'dark_mode' : (currentTheme === 'dark' ? 'color_lens' : 'light_mode') }}</mat-icon>
+    </button>
+  </div>
+  
+  <div class="menu-description">
+    <p>Join the tiles, get to 2048!</p>
+    <p class="subtext">Use your keyboard arrows or swipe to move tiles.</p>
+  </div>
+  
+  <mat-card class="menu-card">
+    <mat-card-content>
+      <h2>New Game</h2>
+      
+      <div class="grid-size-select">
+        <label for="gridSize">Grid Size:</label>
+        <mat-select [(ngModel)]="selectedGridSize" id="gridSize">
+          <mat-option *ngFor="let size of availableGridSizes" [value]="size">
+            {{ size }}×{{ size }}
+          </mat-option>
+        </mat-select>
+      </div>
+      
+      <div class="difficulty-hint">
+        <span *ngIf="selectedGridSize === 4">Classic - Standard difficulty</span>
+        <span *ngIf="selectedGridSize === 5">Challenge - Higher difficulty</span>
+        <span *ngIf="selectedGridSize === 6">Expert - Extreme difficulty</span>
+      </div>
+      
+      <div class="menu-buttons">
+        <button mat-raised-button color="primary" (click)="startNewGame()">
+          <mat-icon>play_arrow</mat-icon>
+          Start Game
+        </button>
+        
+        <button mat-stroked-button color="accent" (click)="viewHighScores()">
+          <mat-icon>emoji_events</mat-icon>
+          High Scores
+        </button>
+        
+        <button mat-stroked-button (click)="openSettings()">
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="credits">
+    <p>Original 2048 by Gabriele Cirulli.</p>
+    <p>Angular version: 18.2.0</p>
+  </div>
+</div> 

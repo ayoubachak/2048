@@ -1,27 +1,121 @@
-# Game2048
+# 2048 Game
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+A modern, responsive implementation of the classic 2048 game built with Angular. This game features multiple grid sizes, theme customization, and persistence of high scores.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Classic 2048 Gameplay**: Merge tiles with the same number to get to 2048
+- **Multiple Grid Sizes**: Play on 4×4 (classic), 5×5 (challenge), or 6×6 (expert) grids
+- **Theme Support**: Switch between Light, Dark, and Colorful themes
+- **Score Tracking**: View and sort high scores for each grid size
+- **Responsive Design**: Play seamlessly on desktop or mobile devices
+- **Touch Support**: Swipe to move tiles on touch devices
+- **Customization**: Adjust animation speed and game settings
+- **Undo Functionality**: Revert your last move
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The game is deployed on GitHub Pages at: https://yourusername.github.io/game-2048/
 
-## Build
+## Technologies Used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular 18.2
+- Angular Material
+- RxJS
+- SCSS for styling
+- TypeScript
 
-## Running unit tests
+## Setup Instructions
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/game-2048.git
+   cd game-2048
+   ```
 
-## Running end-to-end tests
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-## Further help
+4. Open your browser to `http://localhost:4200/`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Building for Production
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/game-2048/browser` directory.
+
+## Deploying to GitHub Pages
+
+The project is configured for easy deployment to GitHub Pages:
+
+1. Make sure your code is committed and pushed to your GitHub repository.
+2. Run the following command:
+   ```bash
+   npm run github-pages
+   ```
+
+This will:
+1. Build the application in production mode with the correct base href
+2. Deploy the build to GitHub Pages
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── game-board/      # Main game grid component
+│   │   ├── high-scores/     # High scores display
+│   │   ├── main-menu/       # Game menu
+│   │   └── settings/        # Game settings
+│   ├── models/
+│   │   ├── tile.model.ts    # Tile interface
+│   │   └── score-entry.model.ts # Score entry interface
+│   ├── services/
+│   │   ├── game.service.ts  # Game logic
+│   │   ├── score.service.ts # Score persistence
+│   │   └── theme.service.ts # Theme management
+│   ├── app.component.ts     # Root component
+│   ├── app.routes.ts        # Application routing
+│   └── app.config.ts        # App configuration
+├── assets/                  # Static assets
+└── styles.scss              # Global styles and theme variables
+```
+
+## Customization
+
+### Themes
+
+The application comes with three built-in themes:
+- **Light**: Classic, light background theme
+- **Dark**: Dark mode for low-light environments
+- **Colorful**: Vibrant, colorful theme
+
+Themes are implemented using CSS variables and can be easily extended or modified in `styles.scss`.
+
+### Grid Sizes
+
+The game supports three grid sizes:
+- **4×4**: Classic difficulty
+- **5×5**: Higher difficulty
+- **6×6**: Extreme difficulty
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Original 2048 game by Gabriele Cirulli
+- Angular team for the excellent framework

@@ -1,0 +1,188 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.main-menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  min-height: calc(100vh - 2rem);
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+  h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+    background: linear-gradient(to right, #f67c5f, #f65e3b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .theme-switcher {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.menu-description {
+  text-align: center;
+  
+  p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    
+    &.subtext {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  }
+}
+
+.menu-card {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  
+  h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.grid-size-select {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  label {
+    flex: 0 0 80px;
+    font-weight: 500;
+  }
+  
+  mat-select {
+    flex: 1;
+  }
+}
+
+.difficulty-hint {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  min-height: 1.2rem;
+  opacity: 0.8;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  
+  button {
+    padding: 0.75rem;
+    
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.credits {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  
+  p {
+    margin: 0.25rem 0;
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .logo h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 0.5rem;
+  }
+  
+  .main-menu-container {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .logo h1 {
+    font-size: 2.5rem;
+  }
+  
+  .menu-description p {
+    font-size: 1rem;
+    
+    &.subtext {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .menu-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .grid-size-select {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    
+    label {
+      flex: 0 0 auto;
+    }
+    
+    mat-select {
+      width: 100%;
+    }
+  }
+}
+
+// Animation for theme switching
+:host-context(.light-theme) .logo h1 {
+  background: linear-gradient(to right, #f67c5f, #f65e3b);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:host-context(.dark-theme) .logo h1 {
+  background: linear-gradient(to right, #edcf72, #edc22e);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:host-context(.colorful-theme) .logo h1 {
+  background: linear-gradient(to right, #3498db, #9b59b6, #e74c3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+} 

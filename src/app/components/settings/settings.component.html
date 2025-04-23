@@ -1,0 +1,83 @@
+<div class="settings-container">
+  <div class="header">
+    <button mat-icon-button (click)="cancel()" aria-label="Back to menu">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Settings</h1>
+    <button mat-icon-button (click)="resetToDefaults()" aria-label="Reset defaults" class="reset-button">
+      <mat-icon>restore</mat-icon>
+    </button>
+  </div>
+  
+  <mat-card class="settings-card">
+    <mat-card-content>
+      <!-- Default Grid Size -->
+      <div class="setting-section">
+        <h2>Default Grid Size</h2>
+        <div class="grid-size-options">
+          <button 
+            *ngFor="let size of availableGridSizes" 
+            mat-raised-button
+            [color]="defaultGridSize === size ? 'primary' : ''"
+            (click)="defaultGridSize = size">
+            {{ size }}×{{ size }}
+          </button>
+        </div>
+      </div>
+      
+      <!-- Theme Selection -->
+      <div class="setting-section">
+        <h2>Theme</h2>
+        <div class="theme-options">
+          <button 
+            *ngFor="let themeOption of availableThemes" 
+            mat-raised-button
+            [class.theme-selected]="theme === themeOption.value"
+            [class]="'theme-button theme-' + themeOption.value"
+            (click)="changeTheme(themeOption.value)">
+            {{ themeOption.label }}
+          </button>
+        </div>
+      </div>
+      
+      <!-- Animation Speed -->
+      <div class="setting-section">
+        <h2>Animation Speed</h2>
+        <div class="slider-container">
+          <mat-icon>slow_motion_video</mat-icon>
+          <mat-slider 
+            min="50" 
+            max="150" 
+            step="10" 
+            [discrete]="true"
+            [showTickMarks]="true">
+            <input matSliderThumb [(ngModel)]="animationSpeed">
+          </mat-slider>
+          <mat-icon>speed</mat-icon>
+        </div>
+        <div class="speed-label">
+          {{ animationSpeed < 100 ? 'Slower' : animationSpeed > 100 ? 'Faster' : 'Normal' }}
+          ({{ animationSpeed }}%)
+        </div>
+      </div>
+      
+      <!-- Undo Option -->
+      <div class="setting-section">
+        <h2>Game Options</h2>
+        <div class="toggle-option">
+          <mat-slide-toggle [(ngModel)]="undoEnabled" color="primary">
+            Enable Undo Button
+          </mat-slide-toggle>
+          <div class="option-description">
+            Allow undoing the last move during gameplay
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="actions">
+    <button mat-stroked-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveAndReturn()">Save Settings</button>
+  </div>
+</div> 

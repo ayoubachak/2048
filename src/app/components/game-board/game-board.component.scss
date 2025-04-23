@@ -1,0 +1,271 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.score-container {
+  background: #bbada0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  color: white;
+  
+  .score-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .score-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Grid container for the game board */
+.grid-container {
+  position: relative;
+  aspect-ratio: 1/1;
+  width: 100%;
+  background: #bbada0;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Background grid cells */
+.grid-background {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-cell {
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tiles container */
+.tiles-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  box-sizing: border-box;
+}
+
+/* Individual tile styling */
+.tile {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((100% - 30px) / 4);
+  height: calc((100% - 30px) / 4);
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: var(--background-color, #eee4da);
+  color: var(--text-color, #776e65);
+  font-size: 1.75rem;
+  /* Simple positioning based on direct percentages */
+  top: calc(var(--y) * 25% + var(--y) * 10px / 3);
+  left: calc(var(--x) * 25% + var(--x) * 10px / 3);
+  transition: all 150ms ease-out;
+  will-change: transform, top, left;
+  z-index: 1;
+}
+
+/* Font size adjustments based on number of digits */
+.tile.text-3xl { font-size: 2rem; }
+.tile.text-2xl { font-size: 1.75rem; }
+.tile.text-xl { font-size: 1.25rem; }
+
+/* Animation for new tiles */
+.tile-new {
+  animation: tile-appear 200ms ease-in-out;
+}
+
+@keyframes tile-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation for merged tiles */
+.tile-merged {
+  z-index: 2;
+  animation: tile-merge 200ms ease-in-out;
+}
+
+@keyframes tile-merge {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Game over overlay */
+.game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(238, 228, 218, 0.73);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fade-in 0.8s ease-in-out;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.game-over-message {
+  text-align: center;
+}
+
+.game-over-message h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.game-over-message p {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile controls */
+.mobile-controls {
+  margin-top: 1rem;
+  display: none;
+}
+
+.swipe-instructions {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #776e65;
+}
+
+.mobile-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.middle-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.mobile-buttons button {
+  background-color: #bbada0;
+  color: white;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    max-width: 100%;
+  }
+  
+  .game-container {
+    padding: 0.5rem;
+  }
+  
+  .tile.text-3xl { font-size: 1.5rem; }
+  .tile.text-2xl { font-size: 1.25rem; }
+  .tile.text-xl { font-size: 1rem; }
+  
+  .grid-container {
+    padding: 8px;
+  }
+  
+  .grid-background {
+    gap: 8px;
+  }
+  
+  .tiles-container {
+    top: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+  }
+  
+  .tile {
+    width: calc((100% - 24px) / 4);
+    height: calc((100% - 24px) / 4);
+    top: calc(var(--y) * 25% + var(--y) * 8px / 3);
+    left: calc(var(--x) * 25% + var(--x) * 8px / 3);
+  }
+}
+
+/* Portrait / Landscape adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  :host {
+    max-width: 80vh;
+  }
+  
+  .game-container {
+    flex-direction: row;
+  }
+  
+  .game-header {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+  
+  .mobile-controls {
+    flex-direction: column;
+  }
+} 

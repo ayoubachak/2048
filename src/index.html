@@ -2,12 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Game2048</title>
+  <title>2048 Game</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    // Check if we have a redirect from 404.html
+    (function() {
+      var redirect = sessionStorage.getItem('redirect');
+      if (redirect) {
+        sessionStorage.removeItem('redirect');
+        
+        // Only redirect if we're on the base path
+        if (window.location.pathname.split('/').pop() === '' || 
+            window.location.pathname.split('/').pop() === 'index.html') {
+          var basePath = '/game-2048/';
+          if (window.location.pathname.indexOf(basePath) === 0) {
+            history.replaceState(null, null, basePath + redirect);
+          }
+        }
+      }
+    })();
+  </script>
 </head>
-<body>
+<body class="mat-typography">
   <app-root></app-root>
 </body>
 </html>

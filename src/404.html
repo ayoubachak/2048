@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048 Game</title>
+  <script>
+    // Store the path segment from the URL
+    sessionStorage.setItem('redirect', window.location.pathname.slice(1));
+    
+    // Get the base path from meta tag (this will be '/game-2048/' for GitHub Pages)
+    var basePath = '/game-2048/';
+    
+    // Redirect to the index.html
+    window.location.href = basePath;
+  </script>
+</head>
+<body>
+  <p>Redirecting to the 2048 Game...</p>
+</body>
+</html> 
