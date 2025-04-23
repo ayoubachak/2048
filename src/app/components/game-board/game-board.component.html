@@ -22,8 +22,11 @@
   <!-- Game board container -->
   <div class="grid-container">
     <!-- Background grid cells -->
-    <div class="grid-background">
-      <!-- Create 16 cells in a 4x4 grid -->
+    <div class="grid-background" 
+         [style.grid-template-columns]="getGridTemplateColumns()" 
+         [style.grid-template-rows]="getGridTemplateRows()"
+         [style.gap.px]="getGapSize()">
+      <!-- Create cells based on grid size -->
       <div class="grid-cell" *ngFor="let i of gridCells"></div>
     </div>
     
@@ -39,6 +42,10 @@
         [ngStyle]="{
           '--x': tile.position.x,
           '--y': tile.position.y,
+          'width': getTileWidth(),
+          'height': getTileHeight(),
+          'top': getTileTop(tile.position.y),
+          'left': getTileLeft(tile.position.x),
           '--background-color': getTileBackgroundColor(tile.value),
           '--text-color': getTileTextColor(tile.value)
         }"

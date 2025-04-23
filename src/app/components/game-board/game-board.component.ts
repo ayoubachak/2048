@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,15 @@ import { Subscription } from 'rxjs';
     AiControlsComponent
   ],
   templateUrl: './game-board.component.html',
-  styleUrls: ['./game-board.component.scss']
+  styleUrls: ['./game-board.component.scss'],
+  host: {
+    '[class.grid-3]': 'gridSize === 3',
+    '[class.grid-4]': 'gridSize === 4',
+    '[class.grid-5]': 'gridSize === 5',
+    '[class.grid-6]': 'gridSize === 6',
+    '[class.grid-7]': 'gridSize === 7',
+    '[class.grid-8]': 'gridSize === 8'
+  }
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   grid: (Tile | null)[][] = [];
@@ -36,6 +44,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   
   // Helper array for grid cells, will be updated when grid size changes
   gridCells: number[] = [];
+  
+  // Gap settings
+  private gapSize = 10; // Default gap size between cells
   
   private startTime?: number;
   private subscriptions: Subscription[] = [];
@@ -88,6 +99,60 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         this.updateGrid();
       })
     );
+  }
+
+  /**
+   * Get the CSS grid template columns string
+   */
+  getGridTemplateColumns(): string {
+    return `repeat(${this.gridSize}, 1fr)`;
+  }
+
+  /**
+   * Get the CSS grid template rows string
+   */
+  getGridTemplateRows(): string {
+    return `repeat(${this.gridSize}, 1fr)`;
+  }
+
+  /**
+   * Calculate the width of a tile based on grid size
+   */
+  getTileWidth(): string {
+    // Use smaller gap size on smaller screens
+    const effectiveGapSize = window.innerWidth <= 480 ? 8 : this.gapSize;
+    const totalGapWidth = effectiveGapSize * (this.gridSize - 1);
+    return `calc((100% - ${totalGapWidth}px) / ${this.gridSize})`;
+  }
+
+  /**
+   * Calculate the height of a tile based on grid size
+   */
+  getTileHeight(): string {
+    // Use smaller gap size on smaller screens
+    const effectiveGapSize = window.innerWidth <= 480 ? 8 : this.gapSize;
+    const totalGapHeight = effectiveGapSize * (this.gridSize - 1);
+    return `calc((100% - ${totalGapHeight}px) / ${this.gridSize})`;
+  }
+
+  /**
+   * Calculate the top position of a tile
+   */
+  getTileTop(y: number): string {
+    // Use smaller gap size on smaller screens
+    const effectiveGapSize = window.innerWidth <= 480 ? 8 : this.gapSize;
+    const cellSize = `calc((100% - ${effectiveGapSize * (this.gridSize - 1)}px) / ${this.gridSize})`;
+    return `calc(${y} * (${cellSize} + ${effectiveGapSize}px))`;
+  }
+
+  /**
+   * Calculate the left position of a tile
+   */
+  getTileLeft(x: number): string {
+    // Use smaller gap size on smaller screens
+    const effectiveGapSize = window.innerWidth <= 480 ? 8 : this.gapSize;
+    const cellSize = `calc((100% - ${effectiveGapSize * (this.gridSize - 1)}px) / ${this.gridSize})`;
+    return `calc(${x} * (${cellSize} + ${effectiveGapSize}px))`;
   }
 
   ngOnDestroy(): void {
@@ -273,14 +338,29 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Get appropriate text size class based on tile value
+   * Get appropriate text size class based on tile value and grid size
    */
   getTileTextSize(value: number | undefined): string {
     if (!value) return '';
     
-    if (value < 100) return 'text-3xl';
-    if (value < 1000) return 'text-2xl';
-    return 'text-xl';
+    // For smaller grid sizes, use larger text
+    if (this.gridSize <= 4) {
+      if (value < 100) return 'text-3xl';
+      if (value < 1000) return 'text-2xl';
+      return 'text-xl';
+    }
+    // For medium grid sizes
+    else if (this.gridSize <= 6) {
+      if (value < 100) return 'text-2xl';
+      if (value < 1000) return 'text-xl';
+      return 'text-lg';
+    } 
+    // For large grid sizes
+    else {
+      if (value < 100) return 'text-xl';
+      if (value < 1000) return 'text-lg';
+      return 'text-sm';
+    }
   }
 
   /**
@@ -295,5 +375,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
    */
   backToMenu(): void {
     this.router.navigate(['/']);
+  }
+
+  /**
+   * Get the gap size based on screen width
+   */
+  getGapSize(): number {
+    return window.innerWidth <= 480 ? 8 : this.gapSize;
   }
 } 
