@@ -29,7 +29,7 @@ The game is deployed on GitHub Pages at: https://yourusername.github.io/game-204
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/game-2048.git
+   git clone https://github.com/ayoubachak/game-2048.git
    cd game-2048
    ```
 
