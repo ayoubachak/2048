@@ -7,7 +7,7 @@ export type ThemeType = 'light' | 'dark' | 'colorful';
   providedIn: 'root'
 })
 export class ThemeService {
-  private readonly STORAGE_KEY = 'game-2048-theme';
+  private readonly STORAGE_KEY = '2048-theme';
   private themeSubject = new BehaviorSubject<ThemeType>('light');
   public theme$: Observable<ThemeType> = this.themeSubject.asObservable();
 

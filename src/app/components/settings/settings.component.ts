@@ -55,7 +55,7 @@ export class SettingsComponent implements OnInit {
    */
   loadSettings(): void {
     // Load default grid size
-    const savedGridSize = localStorage.getItem('game-2048-grid-size');
+    const savedGridSize = localStorage.getItem('2048-grid-size');
     if (savedGridSize) {
       this.defaultGridSize = parseInt(savedGridSize);
     }
@@ -64,13 +64,13 @@ export class SettingsComponent implements OnInit {
     this.theme = this.themeService.getCurrentTheme();
     
     // Load animation speed
-    const savedAnimationSpeed = localStorage.getItem('game-2048-animation-speed');
+    const savedAnimationSpeed = localStorage.getItem('2048-animation-speed');
     if (savedAnimationSpeed) {
       this.animationSpeed = parseInt(savedAnimationSpeed);
     }
     
     // Load undo setting
-    const savedUndoEnabled = localStorage.getItem('game-2048-undo-enabled');
+    const savedUndoEnabled = localStorage.getItem('2048-undo-enabled');
     if (savedUndoEnabled !== null) {
       this.undoEnabled = savedUndoEnabled === 'true';
     }
@@ -81,13 +81,13 @@ export class SettingsComponent implements OnInit {
    */
   saveSettings(): void {
     // Save default grid size
-    localStorage.setItem('game-2048-grid-size', this.defaultGridSize.toString());
+    localStorage.setItem('2048-grid-size', this.defaultGridSize.toString());
     
     // Save theme
     this.themeService.setTheme(this.theme);
     
     // Save animation speed
-    localStorage.setItem('game-2048-animation-speed', this.animationSpeed.toString());
+    localStorage.setItem('2048-animation-speed', this.animationSpeed.toString());
     
     // Apply animation speed to CSS variables
     document.documentElement.style.setProperty(
@@ -96,7 +96,7 @@ export class SettingsComponent implements OnInit {
     );
     
     // Save undo setting
-    localStorage.setItem('game-2048-undo-enabled', this.undoEnabled.toString());
+    localStorage.setItem('2048-undo-enabled', this.undoEnabled.toString());
   }
   
   /**

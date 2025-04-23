@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>2048 Game</title>
-  <base href="/">
+  <base href="/2048/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
         // Only redirect if we're on the base path
         if (window.location.pathname.split('/').pop() === '' || 
             window.location.pathname.split('/').pop() === 'index.html') {
-          var basePath = '/game-2048/';
+          var basePath = '/2048/';
           if (window.location.pathname.indexOf(basePath) === 0) {
             history.replaceState(null, null, basePath + redirect);
           }

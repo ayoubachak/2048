@@ -15,7 +15,7 @@ A modern, responsive implementation of the classic 2048 game built with Angular.
 
 ## Demo
 
-The game is deployed on GitHub Pages at: https://yourusername.github.io/game-2048/
+The game is deployed on GitHub Pages at: https://ayoubachak.github.io/2048/
 
 ## Technologies Used
 
@@ -29,8 +29,8 @@ The game is deployed on GitHub Pages at: https://yourusername.github.io/game-204
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ayoubachak/game-2048.git
-   cd game-2048
+   git clone https://github.com/ayoubachak/2048.git
+   cd 2048
    ```
 
 2. Install dependencies:

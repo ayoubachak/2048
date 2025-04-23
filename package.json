@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href /game-2048/",
+    "build:prod": "ng build --configuration production --base-href /2048/",
     "deploy": "npx angular-cli-ghpages --dir=dist/game-2048/browser",
     "github-pages": "npm run build:prod && npm run deploy"
   },

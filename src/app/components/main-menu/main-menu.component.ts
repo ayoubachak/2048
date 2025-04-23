@@ -46,7 +46,7 @@ export class MainMenuComponent {
    */
   startNewGame(): void {
     // Store selected grid size in localStorage
-    localStorage.setItem('game-2048-grid-size', this.selectedGridSize.toString());
+    localStorage.setItem('2048-grid-size', this.selectedGridSize.toString());
     
     // Navigate to the game board
     this.router.navigate(['/game'], { queryParams: { size: this.selectedGridSize } });
@@ -57,7 +57,7 @@ export class MainMenuComponent {
    */
   startAIGame(): void {
     // Store selected grid size in localStorage
-    localStorage.setItem('game-2048-grid-size', this.selectedGridSize.toString());
+    localStorage.setItem('2048-grid-size', this.selectedGridSize.toString());
     
     // Navigate to the game board with AI enabled
     this.router.navigate(['/game'], { 

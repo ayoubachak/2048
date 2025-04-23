@@ -2,19 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>2048 Game</title>
+  <title>Redirecting...</title>
   <script>
-    // Store the path segment from the URL
-    sessionStorage.setItem('redirect', window.location.pathname.slice(1));
+    // Get the current path excluding the /2048/ part (if present)
+    var currentPath = window.location.pathname;
+    var basePath = '/2048/';
     
-    // Get the base path from meta tag (this will be '/game-2048/' for GitHub Pages)
-    var basePath = '/game-2048/';
+    if (currentPath.indexOf(basePath) === 0) {
+      currentPath = currentPath.slice(basePath.length);
+    }
     
-    // Redirect to the index.html
+    // Store the path in session storage and redirect to the index page
+    sessionStorage.setItem('redirect', currentPath);
     window.location.href = basePath;
   </script>
 </head>
 <body>
-  <p>Redirecting to the 2048 Game...</p>
+  <p>Redirecting...</p>
 </body>
 </html> 

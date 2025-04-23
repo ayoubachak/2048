@@ -6,7 +6,7 @@ import { ScoreEntry } from '../models/score-entry.model';
   providedIn: 'root'
 })
 export class ScoreService {
-  private readonly STORAGE_KEY = 'game-2048-high-scores';
+  private readonly STORAGE_KEY = '2048-high-scores';
   private scoresSubject = new BehaviorSubject<ScoreEntry[]>([]);
   public scores$: Observable<ScoreEntry[]> = this.scoresSubject.asObservable();
 
