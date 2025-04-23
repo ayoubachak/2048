@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ThemeService, ThemeType } from '../../services/theme.service';
@@ -17,6 +18,7 @@ import { ThemeService, ThemeType } from '../../services/theme.service';
     MatCardModule,
     MatIconModule,
     MatSelectModule,
+    MatTooltipModule,
     FormsModule
   ],
   templateUrl: './main-menu.component.html',
@@ -26,6 +28,11 @@ export class MainMenuComponent {
   selectedGridSize = 4;
   availableGridSizes = [4, 5, 6];
   currentTheme: ThemeType;
+  
+  // Custom grid size properties
+  customGridSize = 7;
+  showCustomSize = false;
+  showCustomSizeInput = false;
   
   constructor(
     private router: Router,
@@ -42,7 +49,43 @@ export class MainMenuComponent {
     localStorage.setItem('game-2048-grid-size', this.selectedGridSize.toString());
     
     // Navigate to the game board
-    this.router.navigate(['/game', this.selectedGridSize]);
+    this.router.navigate(['/game'], { queryParams: { size: this.selectedGridSize } });
+  }
+  
+  /**
+   * Start a new game with AI player
+   */
+  startAIGame(): void {
+    // Store selected grid size in localStorage
+    localStorage.setItem('game-2048-grid-size', this.selectedGridSize.toString());
+    
+    // Navigate to the game board with AI enabled
+    this.router.navigate(['/game'], { 
+      queryParams: { 
+        size: this.selectedGridSize,
+        ai: 'true' 
+      } 
+    });
+  }
+  
+  /**
+   * Toggle custom size input display
+   */
+  toggleCustomSizeInput(): void {
+    this.showCustomSizeInput = !this.showCustomSizeInput;
+    if (this.showCustomSizeInput) {
+      this.updateCustomSize();
+    }
+  }
+  
+  /**
+   * Update the custom grid size
+   */
+  updateCustomSize(): void {
+    // Ensure the custom size is within bounds
+    this.customGridSize = Math.min(Math.max(this.customGridSize, 3), 8);
+    this.showCustomSize = true;
+    this.selectedGridSize = this.customGridSize;
   }
   
   /**

@@ -1,0 +1,43 @@
+<div class="ai-controls-container">
+  <h2>AI Controls</h2>
+  
+  <div class="controls-section">
+    <div class="control-group">
+      <div class="button-group">
+        <button mat-raised-button color="primary" (click)="onPlay()" [disabled]="isPlaying">
+          <mat-icon>play_arrow</mat-icon> Play
+        </button>
+        <button mat-raised-button color="warn" (click)="onStop()" [disabled]="!isPlaying">
+          <mat-icon>stop</mat-icon> Stop
+        </button>
+        <button mat-raised-button color="accent" (click)="onStep()" [disabled]="isPlaying">
+          <mat-icon>skip_next</mat-icon> Step
+        </button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>Speed: {{speed}}ms</label>
+      <mat-slider
+        min="100"
+        max="2000"
+        step="100"
+        [disabled]="false">
+        <input matSliderThumb
+               [value]="speed"
+               (valueChange)="onSpeedChange($event)">
+      </mat-slider>
+    </div>
+
+    <div class="control-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Strategy</mat-label>
+        <mat-select [(value)]="strategy" (selectionChange)="onStrategyChange()">
+          <mat-option *ngFor="let option of strategies" [value]="option.value">
+            {{ option.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div> 

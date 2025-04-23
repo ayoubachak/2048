@@ -11,13 +11,15 @@ export class GameService {
   private tilesSubject = new BehaviorSubject<Tile[]>([]);
   private gameOverSubject = new BehaviorSubject<boolean>(false);
   private lastStateSubject = new BehaviorSubject<{tiles: Tile[], score: number} | null>(null);
+  private gridSizeSubject = new BehaviorSubject<number>(4);
   
   // Public observables
   public score$: Observable<number> = this.scoreSubject.asObservable();
   public tiles$: Observable<Tile[]> = this.tilesSubject.asObservable();
   public gameOver$: Observable<boolean> = this.gameOverSubject.asObservable();
+  public gridSize$: Observable<number> = this.gridSizeSubject.asObservable();
   
-  // Fixed grid size
+  // Grid size (default 4)
   private gridSize = 4;
   
   // ID counter for tiles
@@ -28,7 +30,11 @@ export class GameService {
   /**
    * Start a new game
    */
-  startNewGame(): void {
+  startNewGame(gridSize: number = 4): void {
+    // Set grid size (minimum 3, maximum 8)
+    this.gridSize = Math.min(Math.max(gridSize, 3), 8);
+    this.gridSizeSubject.next(this.gridSize);
+    
     this.scoreSubject.next(0);
     this.gameOverSubject.next(false);
     this.lastStateSubject.next(null);

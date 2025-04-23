@@ -21,19 +21,39 @@
           <mat-option *ngFor="let size of availableGridSizes" [value]="size">
             {{ size }}×{{ size }}
           </mat-option>
+          <mat-option [value]="customGridSize" *ngIf="showCustomSize">
+            {{ customGridSize }}×{{ customGridSize }} (Custom)
+          </mat-option>
         </mat-select>
+        
+        <button mat-icon-button (click)="toggleCustomSizeInput()" matTooltip="Custom Size">
+          <mat-icon>{{ showCustomSizeInput ? 'close' : 'add' }}</mat-icon>
+        </button>
+      </div>
+      
+      <div class="custom-size-input" *ngIf="showCustomSizeInput">
+        <label for="customSize">Custom Size (3-8):</label>
+        <input type="number" min="3" max="8" [(ngModel)]="customGridSize" (change)="updateCustomSize()" id="customSize">
       </div>
       
       <div class="difficulty-hint">
         <span *ngIf="selectedGridSize === 4">Classic - Standard difficulty</span>
         <span *ngIf="selectedGridSize === 5">Challenge - Higher difficulty</span>
         <span *ngIf="selectedGridSize === 6">Expert - Extreme difficulty</span>
+        <span *ngIf="selectedGridSize !== 4 && selectedGridSize !== 5 && selectedGridSize !== 6">
+          Custom - {{ selectedGridSize < 4 ? 'Easier' : 'Very Challenging' }} gameplay
+        </span>
       </div>
       
       <div class="menu-buttons">
         <button mat-raised-button color="primary" (click)="startNewGame()">
           <mat-icon>play_arrow</mat-icon>
           Start Game
+        </button>
+        
+        <button mat-raised-button color="accent" (click)="startAIGame()">
+          <mat-icon>smart_toy</mat-icon>
+          Watch AI Play
         </button>
         
         <button mat-stroked-button color="accent" (click)="viewHighScores()">

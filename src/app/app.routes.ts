@@ -6,7 +6,7 @@ import { HighScoresComponent } from './components/high-scores/high-scores.compon
 
 export const routes: Routes = [
   { path: '', component: MainMenuComponent },
-  { path: 'game/:size', component: GameBoardComponent },
+  { path: 'game', component: GameBoardComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'high-scores', component: HighScoresComponent },
   { path: '**', redirectTo: '' }

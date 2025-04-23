@@ -94,12 +94,16 @@
   background-color: var(--background-color, #eee4da);
   color: var(--text-color, #776e65);
   font-size: 1.75rem;
-  /* Simple positioning based on direct percentages */
+  /* Position calculation based on tile coordinates */
   top: calc(var(--y) * 25% + var(--y) * 10px / 3);
   left: calc(var(--x) * 25% + var(--x) * 10px / 3);
-  transition: all 150ms ease-out;
-  will-change: transform, top, left;
+  /* No transition by default to prevent initial animation */
   z-index: 1;
+}
+
+/* Apply transitions only to tiles that have moved */
+.tile-has-moved {
+  transition: top 200ms ease-in-out, left 200ms ease-in-out;
 }
 
 /* Font size adjustments based on number of digits */
@@ -247,6 +251,12 @@
     height: calc((100% - 24px) / 4);
     top: calc(var(--y) * 25% + var(--y) * 8px / 3);
     left: calc(var(--x) * 25% + var(--x) * 8px / 3);
+    /* No transition in base tile style */
+  }
+  
+  /* Ensure the has-moved class works on mobile too */
+  .tile-has-moved {
+    transition: top 200ms ease-in-out, left 200ms ease-in-out;
   }
 }
 

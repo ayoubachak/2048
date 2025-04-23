@@ -7,6 +7,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { ScoreService } from '../../services/score.service';
 import { ThemeService } from '../../services/theme.service';
+import { AIPlayerService } from '../../services/ai-player.service';
+import { AiControlsComponent } from '../ai-controls/ai-controls.component';
 import { Tile } from '../../models/tile.model';
 import { ScoreEntry } from '../../models/score-entry.model';
 import { Subscription } from 'rxjs';
@@ -14,18 +16,26 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-game-board',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatSnackBarModule, RouterModule],
+  imports: [
+    CommonModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    MatSnackBarModule, 
+    RouterModule,
+    AiControlsComponent
+  ],
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   grid: (Tile | null)[][] = [];
   score = 0;
-  gridSize = 4; // Fixed to 4x4
+  gridSize = 4; // Default grid size
   gameOver = false;
+  showAIControls = false; // Flag to show AI controls
   
-  // Helper array for grid cells
-  gridCells = Array(16).fill(0).map((_, i) => i);
+  // Helper array for grid cells, will be updated when grid size changes
+  gridCells: number[] = [];
   
   private startTime?: number;
   private subscriptions: Subscription[] = [];
@@ -36,14 +46,30 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     public gameService: GameService,
     private scoreService: ScoreService,
     private themeService: ThemeService,
+    private aiPlayerService: AIPlayerService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Start new game with fixed grid size
-    this.startNewGame();
+    // Subscribe to route parameters for grid size and AI flag
+    this.subscriptions.push(
+      this.route.queryParams.subscribe(params => {
+        // Check for grid size
+        const size = params['size'] ? parseInt(params['size'], 10) : 4;
+        this.gridSize = isNaN(size) ? 4 : Math.min(Math.max(size, 3), 8); // Limit between 3 and 8
+        
+        // Check for AI controls flag
+        this.showAIControls = params['ai'] === 'true';
+        
+        // Update gridCells for the template
+        this.updateGridCells();
+        
+        // Start new game with selected grid size
+        this.startNewGame();
+      })
+    );
     
     // Subscribe to game state changes
     this.subscriptions.push(
@@ -67,17 +93,27 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Clean up subscriptions
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    
+    // Stop AI if it's running
+    if (this.showAIControls) {
+      this.aiPlayerService.stopPlaying();
+    }
   }
 
   /**
-   * Start a new game with fixed grid size of 4
+   * Update gridCells array based on current grid size
+   */
+  private updateGridCells(): void {
+    const totalCells = this.gridSize * this.gridSize;
+    this.gridCells = Array(totalCells).fill(0).map((_, i) => i);
+  }
+
+  /**
+   * Start a new game with the current grid size
    */
   startNewGame(): void {
-    // Always use 4x4 grid
-    this.gridSize = 4;
-    
-    // Start game in service
-    this.gameService.startNewGame();
+    // Start game in service, passing the grid size
+    this.gameService.startNewGame(this.gridSize);
     this.startTime = Date.now();
   }
 

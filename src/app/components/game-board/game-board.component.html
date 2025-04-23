@@ -35,6 +35,7 @@
         class="tile"
         [class.tile-new]="tile.isNew"
         [class.tile-merged]="tile.isMerged"
+        [class.tile-has-moved]="tile.previousPosition && (tile.previousPosition.x !== tile.position.x || tile.previousPosition.y !== tile.position.y)"
         [ngStyle]="{
           '--x': tile.position.x,
           '--y': tile.position.y,
@@ -57,6 +58,9 @@
       </div>
     </div>
   </div>
+  
+  <!-- AI Controls -->
+  <app-ai-controls *ngIf="showAIControls"></app-ai-controls>
   
   <!-- Mobile controls -->
   <div class="mobile-controls">
